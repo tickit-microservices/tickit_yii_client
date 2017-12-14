@@ -2,13 +2,15 @@
 
 namespace app\entities\models;
 
-class Project extends BaseActiveRecord
+class Project extends BaseModel
 {
     /**
-     * @inheritdoc
+     * @var int
      */
-    public static function tableName()
-    {
-        return 'projects';
-    }
+    public $id;
+
+    /**
+     * @var string
+     */
+    public $name;
 }

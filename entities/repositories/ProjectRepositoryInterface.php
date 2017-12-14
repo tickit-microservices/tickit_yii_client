@@ -4,7 +4,7 @@ namespace app\entities\repositories;
 
 use app\entities\models\Project;
 
-interface ProjectRepositoryInterface extends RepositoryInterface
+interface ProjectRepositoryInterface
 {
     /**
      * Return projects of an user

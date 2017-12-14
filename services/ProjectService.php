@@ -5,7 +5,7 @@ namespace app\services;
 use app\entities\models\Project;
 use app\entities\repositories\ProjectRepositoryInterface;
 
-class ProjectService extends BaseService
+class ProjectService
 {
     /**
      * @var ProjectRepositoryInterface
@@ -19,7 +19,7 @@ class ProjectService extends BaseService
      */
     public function __construct(ProjectRepositoryInterface $repository)
     {
-        parent::__construct($repository);
+        $this->repository = $repository;
     }
 
     /**
