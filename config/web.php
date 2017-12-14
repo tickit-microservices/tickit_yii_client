@@ -53,8 +53,9 @@ $config = [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
-                'GET users/<userId:\d+>/projects' => 'project/by-user',
-                'GET ticks' => 'tick/index'
+                'GET login' => 'session/login-form',
+                'POST login' => 'session/login',
+                'GET projects' => 'project/index'
             ],
         ],
     ],

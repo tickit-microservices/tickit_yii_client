@@ -21,10 +21,10 @@ class UserServiceProvider implements BootstrapInterface
         });
 
         Yii::$container->setSingleton(UserService::class, function () {
-            /** @var UserRepositoryInterface $UserRepository */
-            $UserRepository = Yii::$container->get(UserRepositoryInterface::class);
+            /** @var UserRepositoryInterface $userRepository */
+            $userRepository = Yii::$container->get(UserRepositoryInterface::class);
 
-            return new UserService($UserRepository);
+            return new UserService($userRepository);
         });
     }
 }

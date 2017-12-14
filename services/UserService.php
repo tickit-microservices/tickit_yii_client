@@ -4,6 +4,7 @@ namespace app\services;
 
 use app\entities\models\User;
 use app\entities\repositories\UserRepositoryInterface;
+use Yii;
 
 class UserService
 {
@@ -23,13 +24,17 @@ class UserService
     }
 
     /**
-     * Find users
-     * @param array $userIds
+     * @param string $email
+     * @param string $password
      *
-     * @return User[]
+     * @return User
      */
-    public function findByIds($userIds = [])
+    public function authenticate(string $email, string $password)
     {
-        return $this->userRepository->findByIds($userIds);
+        $user = $this->userRepository->authenticate($email, $password);
+
+        Yii::$app->user->login($user);
+
+        return $user;
     }
 }

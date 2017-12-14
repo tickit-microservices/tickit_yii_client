@@ -7,11 +7,10 @@ use app\entities\models\User;
 interface UserRepositoryInterface
 {
     /**
-     * Return users
+     * @param string $email
+     * @param string $password
      *
-     * @param array $userIds
-     *
-     * @return User[]
+     * @return User
      */
-    public function findByIds($userIds = []);
+    public function authenticate(string $email, string $password);
 }
