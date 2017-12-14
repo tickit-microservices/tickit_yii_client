@@ -1,0 +1,8 @@
+env:
+  - DB_NAME=tickit_project_test DB_USERNAME=travis DB_PASSWORD= DB_HOST=localhost
+language: php
+php:
+  - '7.1'
+install:
+  - composer install
+script: vendor/bin/codecept run
