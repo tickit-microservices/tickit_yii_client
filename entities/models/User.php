@@ -16,17 +16,22 @@ class User extends BaseModel implements IdentityInterface
     /**
      * @var string
      */
-    public $email;
-
-    /**
-     * @var string
-     */
     public $firstName;
 
     /**
      * @var string
      */
     public $lastName;
+
+    /**
+     * @var string
+     */
+    public $email;
+
+    /**
+     * @var string
+     */
+    public $password;
 
     /**
      * @var string

@@ -1,12 +1,12 @@
-.session-login h3 {
+.user-sign-up h3 {
     color: #00b7e5;
     margin-bottom: 25px;
 }
 
-.session-login .login-form .btn-flat {
+.user-sign-up .sign-up-form .btn-flat {
     width: 100%;
 }
 
-.session-login .sign-up {
+.user-sign-up .sign-up {
     margin-top: 20px;
 }
