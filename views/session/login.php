@@ -9,14 +9,16 @@ $this->title = 'Tickit | Login';
 
         <div class="row">
             <div class="col-lg-4">
-                <h2>Login</h2>
+                <h3>Login to your account</h3>
 
-                <p><?php echo $errorMessage ?? ''; ?></p>
+                <?php if (!empty($errorMessage)) { ?>
+                    <p class="alert alert-warning"><?php echo $errorMessage ?? ''; ?></p>
+                <?php } ?>
 
-                <form method="post">
-                    <input type="text" placeholder="Email" name="email" /> <br/>
-                    <input type="password" placeholder="Password" name="password" /><br/>
-                    <input type="submit" value="Login">
+                <form method="post" class="login-form">
+                    <input type="text" placeholder="Email" name="email"/> <br/>
+                    <input type="password" placeholder="Password" name="password"/><br/>
+                    <input type="submit" value="Login" class="btn btn-flat">
                 </form>
             </div>
         </div>
