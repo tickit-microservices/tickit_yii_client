@@ -2,9 +2,11 @@
 
 /* @var $this yii\web\View */
 
+use yii\helpers\Url;
+
 $this->title = 'Tickit | Login';
 ?>
-<div class="site-index">
+<div class="session-login">
     <div class="body-content">
 
         <div class="row">
@@ -20,6 +22,8 @@ $this->title = 'Tickit | Login';
                     <input type="password" placeholder="Password" name="password"/><br/>
                     <input type="submit" value="Login" class="btn btn-flat">
                 </form>
+
+                <p class="sign-up">Don't have an account? <a href="<?php echo Url::to(['user/sign-up-form']);?>">Sign up</a></p>
             </div>
         </div>
     </div>

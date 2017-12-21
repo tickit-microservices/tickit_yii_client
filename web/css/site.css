@@ -41,6 +41,10 @@ h3 {
     font-style: italic;
 }
 
+a, a:hover {
+    color: #00b7e5;
+}
+
 /* add sorting icons to gridview sort links */
 a.asc:after, a.desc:after {
     position: relative;
