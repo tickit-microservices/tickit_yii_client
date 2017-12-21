@@ -2,9 +2,9 @@
 
 namespace app\entities\ValueObjects;
 
-use yii\base\Object;
+use yii\base\BaseObject;
 
-class SignUpResult extends Object
+class SignUpResult extends BaseObject
 {
     public $success = false;
 
