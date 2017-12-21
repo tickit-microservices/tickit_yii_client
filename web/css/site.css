@@ -1,6 +1,11 @@
 html,
 body {
     height: 100%;
+    font-size: 13px;
+}
+
+h3 {
+    margin: 15px 0;
 }
 
 .wrap {
@@ -112,4 +117,20 @@ a.desc:after {
 
 .nav > li > form > button.logout:focus {
     outline: none;
+}
+
+input[type="text"],
+input[type="password"] {
+    padding: 10px 6px;
+    width: 100%;
+    line-height: 13px;
+    outline: none;
+    margin-bottom: 10px;
+}
+
+.btn-flat, .btn-flat:hover {
+    border-radius: 0;
+    background: #00b7e5;
+    color: #fff;
+    padding: 10px 6px;
 }
