@@ -43,4 +43,17 @@ class ProjectService
     {
         return $this->repository->findProjectsByUser($userId);
     }
+
+    /**
+     * Join an user to a project
+     *
+     * @param int $userId
+     * @param int $projectId
+     *
+     * @return Project[]
+     */
+    public function joinProject($userId, $projectId)
+    {
+        return $this->repository->joinProject($userId, $projectId);
+    }
 }

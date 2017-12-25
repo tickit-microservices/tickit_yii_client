@@ -39,6 +39,22 @@ class ProjectRepository extends BaseRepository implements ProjectRepositoryInter
         })->all();
     }
 
+    /**
+     * @inheritdoc
+     */
+    public function joinProject(int $userId, int $projectId)
+    {
+        $url = $this->getProjectBaseUrl() . '/' . 'users' . '/' . $userId . '/' . 'join' . '/' . $projectId;
+
+        $response = $this->http->post($url);
+
+        $data = json_decode($response->getBody())->data;
+
+        return collect($data)->map(function ($projectData) {
+            return new Project($projectData);
+        });
+    }
+
     private function getProjectBaseUrl()
     {
         return getenv('PROJECT_SERVICE_URL');
