@@ -5,6 +5,7 @@ namespace app\controllers;
 use app\services\ProjectService;
 use Yii;
 use yii\base\Module;
+use yii\helpers\Url;
 
 class ProjectController extends BaseController
 {
@@ -59,9 +60,27 @@ class ProjectController extends BaseController
 
     public function actionShow($id)
     {
+        return $this->render('show');
     }
 
+    /**
+     * Join current user to a project
+     *
+     * @param $id
+     * @return \yii\web\Response
+     */
     public function actionJoin($id)
     {
+        $currentUser = Yii::$app->user->identity;
+
+        if ($this->projectService->joinProject($currentUser->id, $id)) {
+            Yii::$app->session->setFlash('success', 'Successfully joined project');
+
+            return $this->redirect(Url::to(['project/show', 'id' => $id]));
+        }
+
+        Yii::$app->session->setFlash('error', 'Failed to join project');
+
+        return $this->redirect(Url::to(['project/index']));
     }
 }

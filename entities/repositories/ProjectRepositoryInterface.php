@@ -21,4 +21,14 @@ interface ProjectRepositoryInterface
      * @return Project[]
      */
     public function findProjectsByUser(int $userId);
+
+    /**
+     * Join an user to a project
+     *
+     * @param int $userId
+     * @param int $projectId
+     *
+     * @return Project[] List of joined projects
+     */
+    public function joinProject(int $userId, int $projectId);
 }
