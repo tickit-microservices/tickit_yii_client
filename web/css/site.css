@@ -5,7 +5,8 @@ body {
 }
 
 h3 {
-    margin: 15px 0;
+    color: #00b7e5;
+    margin: 15px 0 25px;
 }
 
 .wrap {
@@ -132,9 +133,17 @@ input[type="password"] {
     margin-bottom: 10px;
 }
 
+.btn {
+    background: #00b7e5;
+}
+
+.btn-secondary {
+    background: #e5593b;
+}
+
 .btn-flat, .btn-flat:hover {
     border-radius: 0;
-    background: #00b7e5;
     color: #fff;
     padding: 10px 6px;
+    width: 100%;
 }

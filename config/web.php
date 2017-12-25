@@ -57,7 +57,9 @@ $config = [
                 'POST signup' => 'user/sign-up',
                 'GET login' => 'session/login-form',
                 'POST login' => 'session/login',
-                'GET projects' => 'project/index'
+                'GET projects' => 'project/index',
+                'GET projects/<id:\d+>' => 'project/show',
+                'POST projects/<id:\d+>/join' => 'project/join'
             ],
         ],
     ],

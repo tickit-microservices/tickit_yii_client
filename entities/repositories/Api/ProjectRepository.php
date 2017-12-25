@@ -10,9 +10,9 @@ class ProjectRepository extends BaseRepository implements ProjectRepositoryInter
     /**
      * @inheritdoc
      */
-    public function findProjectsByUser(int $userId)
+    public function findAll()
     {
-        $url = $this->getBaseUrl() . '/' . 'users' . '/' . $userId . '/' . 'projects';
+        $url = $this->getProjectBaseUrl() . '/' . 'projects';
 
         $response = $this->http->get($url);
 
@@ -23,7 +23,23 @@ class ProjectRepository extends BaseRepository implements ProjectRepositoryInter
         })->all();
     }
 
-    private function getBaseUrl()
+    /**
+     * @inheritdoc
+     */
+    public function findProjectsByUser(int $userId)
+    {
+        $url = $this->getProjectBaseUrl() . '/' . 'users' . '/' . $userId . '/' . 'projects';
+
+        $response = $this->http->get($url);
+
+        $data = json_decode($response->getBody())->data;
+
+        return collect($data)->map(function ($projectData) {
+            return new Project($projectData);
+        })->all();
+    }
+
+    private function getProjectBaseUrl()
     {
         return getenv('PROJECT_SERVICE_URL');
     }

@@ -41,10 +41,27 @@ class ProjectController extends BaseController
     {
         $currentUser = Yii::$app->user->identity;
 
-        $projects = $this->projectService->findProjectsByUser($currentUser->id);
+        $allProjects = $this->projectService->findAll();
+
+        $userProjects = $this->projectService->findProjectsByUser($currentUser->id);
+
+        $projectUserMap = [];
+        foreach ($userProjects as $userProject)
+        {
+            $projectUserMap[$userProject->id] = true;
+        }
 
         return $this->render('index', [
-            'projects' => $projects
+            'allProjects' => $allProjects,
+            'projectUserMap' => $projectUserMap
         ]);
+    }
+
+    public function actionShow($id)
+    {
+    }
+
+    public function actionJoin($id)
+    {
     }
 }
