@@ -58,9 +58,28 @@ class ProjectController extends BaseController
         ]);
     }
 
+    /**
+     * @param int $id
+     *
+     * @return string
+     */
     public function actionShow($id)
     {
-        return $this->render('show');
+        $users = $this->projectService->findUsers((int)$id);
+
+        $year = date('Y');
+        $month = date('m');
+        $project = $this->projectService->findProjectWithTicks((int)$id, $year, $month);
+
+        $tickMap = $this->projectService->createTickMap($project);
+
+        return $this->render('show', [
+            'users' => $users,
+            'project' => $project,
+            'year' => $year,
+            'month' => $month,
+            'tickMap' => $tickMap
+        ]);
     }
 
     /**
