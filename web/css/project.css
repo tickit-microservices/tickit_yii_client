@@ -13,3 +13,7 @@
     color: white;
     text-align: center;
 }
+
+.project-detail .ticked {
+    background-color: #00b7e5;
+}

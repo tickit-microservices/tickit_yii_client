@@ -2,8 +2,18 @@
 
 namespace app\entities\models;
 
-class Tick extends BaseActiveRecord
+class Tick extends BaseModel
 {
+    /**
+     * @var int
+     */
+    public $id;
+
+    /**
+     * @var string
+     */
+    public $created;
+
     /**
      * @var User
      */
@@ -13,17 +23,4 @@ class Tick extends BaseActiveRecord
      * @var User
      */
     public $createdByUser;
-
-    /**
-     * @inheritdoc
-     */
-    public static function tableName()
-    {
-        return 'ticks';
-    }
-
-    public function getProject()
-    {
-        return $this->hasOne(Project::class, ['id' => 'project_id']);
-    }
 }
