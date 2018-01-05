@@ -11,32 +11,43 @@ $this->title = 'Tickit | Projects | ' . $project->name;
 
         <div class="row">
             <div class="col-lg-12">
-                <h3>Projects: <?php echo $project->name; ?></h3>
+                <h3><a href="<?php echo Url::to(['project/show', 'id' => $project->id]);?>">Projects: <?php echo $project->name; ?></a></h3>
 
-                 <table class="table table-bordered">
+                <div class="navigation">
+                    <div class="navigation-item"><a class="btn btn-flat" href="<?php echo Url::to(['project/show', 'id' => $project->id, 'y' => $previousYear, 'm' => $previousMonth]);?>">Previous</a></div>
+                    <div class="navigation-item current"><?php echo $month . '/' . $year;?></div>
+                    <div class="navigation-item"><a class="btn btn-flat" href="<?php echo Url::to(['project/show', 'id' => $project->id, 'y' => $nextYear, 'm' => $nextMonth]);?>">Next</a></div>
+                </div>
+
+                 <table class="table table-bordered ticks">
                      <thead>
                          <tr>
                              <th>Date</th>
                              <?php foreach ($users as $user) { ?>
-                                 <th><?php echo $user->firstName; ?></th>
+                                 <th style="width: <?php echo 100/(count($users) + 1);?>%;"><?php echo $user->firstName; ?></th>
                              <?php } ?>
                          </tr>
                      </thead>
                      <tbody>
-                     <?php for($i = 1; $i <= 31; $i++) {?>
-                        <tr>
-                            <td>
-                                <?php
-                                $currentDate = $year . '-' . $month . '-' . $i;
-                                echo $currentDate;
-                                ?>
+                     <?php for($day = 1; $day <= $lastDay; $day++) {?>
+                         <?php $currentDate = date('Y-m-d', strtotime($year . '-' . $month . '-' . $day));?>
+                        <tr class="<?php echo date('N', strtotime($currentDate)) >= 6 ? 'holiday' : '' ?>">
+                            <td style="text-align: center">
+                                <?php echo $currentDate . ' (' . date('D', strtotime($currentDate)) . ')';?>
                             </td>
                             <?php foreach ($users as $user) { ?>
                                 <?php
-                                $ticked = !empty($tickMap[$currentDate][$user->id]);
+                                    $ticked = !empty($tickMap[$currentDate][$user->id]);
+                                    $futureDate = strtotime($currentDate) > strtotime(date('Y-m-d'));
                                 ?>
-                                <td class="<?php echo $ticked ? 'ticked' : ''?>">
-                                    <?php echo $ticked ? 'Yes' : 'No';?>
+                                <td class="<?php echo $ticked ? 'ticked' : ($futureDate ? '' : 'not-ticked')?>">
+                                    <?php if ($ticked) { ?>
+                                        <span class="glyphicon glyphicon-ok"></span>
+                                    <?php } ?>
+
+                                    <?php if (!$ticked && !$futureDate) { ?>
+                                        <span class="glyphicon glyphicon-remove"></span>
+                                    <?php } ?>
                                 </td>
                             <?php } ?>
                         </tr>

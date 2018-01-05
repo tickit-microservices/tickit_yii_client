@@ -55,8 +55,8 @@ class ProjectService
 
         foreach ($project->ticks as $tick)
         {
-            $created = substr($tick->created, 0, 10);
-            $tickMap[$created][$tick->user->id] = true;
+            $createdDate = date('Y-m-d', strtotime($tick->created));
+            $tickMap[$createdDate][$tick->user->id] = true;
         }
 
         return $tickMap;
