@@ -67,8 +67,16 @@ class ProjectController extends BaseController
     {
         $users = $this->projectService->findUsers((int)$id);
 
-        $year = date('Y');
-        $month = date('m');
+        $year = (int)(Yii::$app->request->get('y') ?? date('Y'));
+        $month = (int)(Yii::$app->request->get('m') ?? date('m'));
+        $lastDay = date('t', strtotime("$year-$month-1"));
+
+        $previousYear = $month === 1 ? $year - 1 : $year;
+        $previousMonth = $month === 1 ? 12 : $month - 1;
+
+        $nextYear = $month === 12 ? $year + 1 : $year;
+        $nextMonth = $month === 12 ? 1 : $month + 1;
+
         $project = $this->projectService->findProjectWithTicks((int)$id, $year, $month);
 
         $tickMap = $this->projectService->createTickMap($project);
@@ -78,7 +86,12 @@ class ProjectController extends BaseController
             'project' => $project,
             'year' => $year,
             'month' => $month,
-            'tickMap' => $tickMap
+            'lastDay' => $lastDay,
+            'tickMap' => $tickMap,
+            'previousYear' => $previousYear,
+            'previousMonth' => $previousMonth,
+            'nextYear' => $nextYear,
+            'nextMonth' => $nextMonth
         ]);
     }
 
