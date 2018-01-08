@@ -10,6 +10,11 @@ class Tick extends BaseModel
     public $id;
 
     /**
+     * @var int
+     */
+    public $projectId;
+
+    /**
      * @var string
      */
     public $created;

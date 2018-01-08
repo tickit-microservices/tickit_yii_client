@@ -34,6 +34,10 @@ interface ProjectRepositoryInterface
      */
     public function findProjectWithTicks(int $projectId, int $year, int $month);
 
+    public function tick(int $projectId, int $userId, string $date);
+
+    public function unTick(int $projectId, int $tickId, User $user);
+
     /**
      * Return projects of an user
      *
