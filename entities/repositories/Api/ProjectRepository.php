@@ -78,6 +78,36 @@ class ProjectRepository extends BaseRepository implements ProjectRepositoryInter
         return $project;
     }
 
+    public function tick(int $projectId, int $userId, string $date)
+    {
+        $url = $this->getProjectBaseUrl() . '/' . 'projects' . '/' . $projectId . '/' . 'ticks';
+
+        $response = $this->http->post($url, [
+            'form_params' => [
+                'user_id' => $userId,
+                'date' => $date
+            ]
+        ]);
+
+        $tickData = json_decode($response->getBody())->data;
+
+        $newTick = new Tick();
+        $newTick->id = $tickData->id;
+        $newTick->projectId = $tickData->projectId;
+        $newTick->created = $tickData->created;
+
+        return $newTick;
+    }
+
+    public function unTick(int $projectId, int $tickId, User $user)
+    {
+        $url = $this->getProjectBaseUrl() . '/' . 'projects' . '/' . $projectId . '/' . 'ticks' . '/' . $tickId;
+
+        $this->http->delete($url);
+
+        return true;
+    }
+
     /**
      * @inheritdoc
      */

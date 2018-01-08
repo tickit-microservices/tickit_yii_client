@@ -30,8 +30,11 @@ $this->title = 'Tickit | Projects | ' . $project->name;
                      </thead>
                      <tbody>
                      <?php for($day = 1; $day <= $lastDay; $day++) {?>
-                         <?php $currentDate = date('Y-m-d', strtotime($year . '-' . $month . '-' . $day));?>
-                        <tr class="<?php echo date('N', strtotime($currentDate)) >= 6 ? 'holiday' : '' ?>">
+                         <?php
+                            $currentDate = date('Y-m-d', strtotime($year . '-' . $month . '-' . $day));
+                            $isHoliday = date('N', strtotime($currentDate)) >= 6;
+                         ?>
+                        <tr class="<?php echo $isHoliday ? 'holiday' : '' ?>">
                             <td style="text-align: center">
                                 <?php echo $currentDate . ' (' . date('D', strtotime($currentDate)) . ')';?>
                             </td>
@@ -40,12 +43,15 @@ $this->title = 'Tickit | Projects | ' . $project->name;
                                     $ticked = !empty($tickMap[$currentDate][$user->id]);
                                     $futureDate = strtotime($currentDate) > strtotime(date('Y-m-d'));
                                 ?>
-                                <td class="<?php echo $ticked ? 'ticked' : ($futureDate ? '' : 'not-ticked')?>">
+                                <td class="<?php echo $ticked ? 'ticked' : ($futureDate || $isHoliday ? '' : 'not-ticked')?>"
+                                    tick-id="<?php echo $ticked ? $tickMap[$currentDate][$user->id]->id : '' ?>"
+                                    date="<?php echo $currentDate;?>"
+                                    project-id="<?php echo $project->id?>">
                                     <?php if ($ticked) { ?>
                                         <span class="glyphicon glyphicon-ok"></span>
                                     <?php } ?>
 
-                                    <?php if (!$ticked && !$futureDate) { ?>
+                                    <?php if (!$ticked && !$futureDate && !$isHoliday) { ?>
                                         <span class="glyphicon glyphicon-remove"></span>
                                     <?php } ?>
                                 </td>

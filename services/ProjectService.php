@@ -49,6 +49,16 @@ class ProjectService
         return $this->repository->findProjectWithTicks($projectId, $year, $month);
     }
 
+    public function tick(int $projectId, int $userId, string $date)
+    {
+        return $this->repository->tick($projectId, $userId, $date);
+    }
+
+    public function unTick(int $projectId, int $tickId, User $user)
+    {
+        return $this->repository->unTick($projectId, $tickId, $user);
+    }
+
     public function createTickMap(Project $project)
     {
         $tickMap = [];
@@ -56,7 +66,7 @@ class ProjectService
         foreach ($project->ticks as $tick)
         {
             $createdDate = date('Y-m-d', strtotime($tick->created));
-            $tickMap[$createdDate][$tick->user->id] = true;
+            $tickMap[$createdDate][$tick->user->id] = $tick;
         }
 
         return $tickMap;

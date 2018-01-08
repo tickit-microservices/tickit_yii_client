@@ -2,10 +2,12 @@
 
 namespace app\controllers;
 
+use app\entities\models\User;
 use app\services\ProjectService;
 use Yii;
 use yii\base\Module;
 use yii\helpers\Url;
+use yii\web\Response;
 
 class ProjectController extends BaseController
 {
@@ -65,6 +67,7 @@ class ProjectController extends BaseController
      */
     public function actionShow($id)
     {
+        $currentUser = Yii::$app->user->identity;
         $users = $this->projectService->findUsers((int)$id);
 
         $year = (int)(Yii::$app->request->get('y') ?? date('Y'));
@@ -82,6 +85,7 @@ class ProjectController extends BaseController
         $tickMap = $this->projectService->createTickMap($project);
 
         return $this->render('show', [
+            'currentUser' => $currentUser,
             'users' => $users,
             'project' => $project,
             'year' => $year,
@@ -99,7 +103,8 @@ class ProjectController extends BaseController
      * Join current user to a project
      *
      * @param $id
-     * @return \yii\web\Response
+     *
+     * @return Response
      */
     public function actionJoin($id)
     {
@@ -114,5 +119,25 @@ class ProjectController extends BaseController
         Yii::$app->session->setFlash('error', 'Failed to join project');
 
         return $this->redirect(Url::to(['project/index']));
+    }
+
+    public function actionTick($id)
+    {
+        Yii::$app->response->format = Response::FORMAT_JSON;
+
+        $currentUser = Yii::$app->user->identity;
+        $date = Yii::$app->request->post('date');
+
+        return $this->projectService->tick($id, $currentUser->getId(), $date);
+    }
+
+    public function actionRemoveTick($id, $tickId)
+    {
+        Yii::$app->response->format = Response::FORMAT_JSON;
+
+        /** @var User $currentUser */
+        $currentUser = Yii::$app->user->identity;
+
+        return $this->projectService->unTick($id, $tickId, $currentUser);
     }
 }

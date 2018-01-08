@@ -59,7 +59,9 @@ $config = [
                 'POST login' => 'session/login',
                 'GET projects' => 'project/index',
                 'GET projects/<id:\d+>' => 'project/show',
-                'POST projects/<id:\d+>/join' => 'project/join'
+                'POST projects/<id:\d+>/join' => 'project/join',
+                'POST projects/<id:\d+>/ticks' => 'project/tick',
+                'DELETE projects/<id:\d+>/ticks/<tickId:\d+>' => 'project/remove-tick'
             ],
         ],
     ],
